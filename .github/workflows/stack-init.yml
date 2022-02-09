@@ -1,0 +1,49 @@
+  name: "Deployment Node JS Application to AWS Lambda"
+
+  on:
+    workflow_dispatch:
+
+  jobs:
+    stack-initialization:
+      runs-on: ubuntu-latest
+      steps:
+        - run: echo "Creating Node JS sample application and deploying to AWS lambda"
+        - name: checkout
+          uses: actions/checkout@v2
+          with:
+            persist-credentials: false
+        
+        - name: use node.js v14 
+          uses: actions/setup-node@v1
+          with:
+            node-version: '14'
+            check-latest: true
+            registry-url: https://registry.npmjs.org/
+
+        - name: Stacks framework code generation
+          run: |
+            npx express-generator expressjs-scaffold
+            cp -r expressjs-scaffold/* .
+            rm -rf expressjs-scaffold
+          
+        - name: Configure git
+          run: |
+            git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+            git config --global user.name "${{ github.actor }}"
+            git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+            
+        - name: Commit generated code and initialize workflows
+          run: |
+            git add .
+            git commit -m "Generate framework code and initialize workflows"
+            git push
+
+        - name: npm install
+          run: |
+            npm install
+
+        - name: Deploy to AWS Lambda
+          uses: docker://admiralawkbar/aws-nodejs:latest
+          env:
+            AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+            AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}

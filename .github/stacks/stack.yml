@@ -1,0 +1,48 @@
+version: 0.1.0   
+
+name: A stack to deploy Node Js application to AWS Lambda
+description: A stack to deploy Node JS Application to AWS Lambda
+
+branding:
+ icon: 'cloud'
+ color: 'red'
+
+inputs:
+  - name: AWS_ACCESS_KEY
+    description: Enter your AWS Key ID. This will be stored as a secret
+    is-secret: true
+    required: true
+    
+  - name: AWS_SECRET_KEY
+    description: Enter your AWS Secret Access key. This will be stored as a secret
+    is-secret: true
+    required: true
+
+configs:
+  repo-metadata:
+    parameters:
+      description: 'Node JS Application on Lambda'
+      secrets: 
+        - name: AWS_ACCESS_KEY
+          value: ${{inputs.AWS_ACCESS_KEY}}
+        - name: AWS_SECRET_KEY
+          value: ${{inputs.AWS_SECRET_KEY}}
+      topics:
+      - nodejs
+      - aws
+      - serverless
+      - lambda
+
+  branches:
+    - name: main
+
+  environments:
+    - name: development
+      parameters:
+        protected-branches: false
+        allowed-branch-rules:
+          - main
+          - releases/*
+          
+init:
+  uses: "stack-init.yaml"
