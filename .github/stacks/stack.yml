@@ -45,4 +45,8 @@ configs:
           - releases/*
 
 init:
+<<<<<<< HEAD
   uses: "stack-init.yaml"
+=======
+  uses: "stack-init.yml"
+>>>>>>> 3d28edd3ed80a678632f19dd762688bba220dc36
