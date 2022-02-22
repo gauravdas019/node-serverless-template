@@ -1,11 +1,11 @@
-version: 0.1.0
+version: 0.4.0
 
 name: A stack to deploy Github App to AWS Lambda
 description: A stack to deploy Github app to AWS Lambda
 
 branding:
-  icon: "box"
-  color: "purple"
+  icon: "cloud"
+  color: "red"
 
 inputs:
   - name: AWS_ACCESS_KEY_ID
