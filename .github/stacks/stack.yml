@@ -1,20 +1,25 @@
 version: 0.1.0
 
-name: A stack to deploy Node Js application to AWS Lambda
-description: A stack to deploy Node JS Application to AWS Lambda
+name: A stack to deploy Github App to AWS Lambda
+description: A stack to deploy Github app to AWS Lambda
 
 branding:
-  icon: "cloud"
-  color: "red"
+  icon: "box"
+  color: "purple"
 
 inputs:
-  - name: AWS_ACCESS_KEY
+  - name: AWS_ACCESS_KEY_ID
     description: Enter your AWS Key ID. This will be stored as a secret
     is-secret: true
     required: true
 
-  - name: AWS_SECRET_KEY
+  - name: AWS_SECRET_ACCESS_KEY
     description: Enter your AWS Secret Access key. This will be stored as a secret
+    is-secret: true
+    required: true
+  
+  - name: SERVERLESS_ACCESS_KEY
+    description: Enter the serverless Access Key. This will be stored as a secret
     is-secret: true
     required: true
 
@@ -23,30 +28,42 @@ configs:
     parameters:
       description: "Node JS Application on Lambda"
       secrets:
-        - name: AWS_ACCESS_KEY
-          value: ${{inputs.AWS_ACCESS_KEY}}
-        - name: AWS_SECRET_KEY
-          value: ${{inputs.AWS_SECRET_KEY}}
+        - name: AWS_SECRET_ACCESS_KEY
+          value: ${{inputs.AWS_SECRET_ACCESS_KEY}}
+        - name: AWS_SECRET_ACCESS_KEY
+          value: ${{inputs.AWS_SECRET_ACCESS_KEY}}
+        - name: SERVERLESS_ACCESS_KEY
+          value: ${{inputs.SERVERLESS_ACCESS_KEY}}
+
       topics:
         - nodejs
         - aws
         - serverless
         - lambda
+        - github apps
+        - probot
 
-  # branches:
-  #   - name: main
+  branches:
+    - name: main
+      parameters:
+        allow-force-push: false
+        allow-deletions: false
+          required-pull-request-reviews:
+            dismiss-stale-reviews: true
+            required-approving-review-count: 2
+
+    - name: releases/*
+      parameters:
+        allow-force-push: false
+        allow-deletion: false
 
   environments:
     - name: development
       parameters:
-        protected-branches: false
+        protected-branches: true
         allowed-branch-rules:
           - main
           - releases/*
 
 init:
-<<<<<<< HEAD
-  uses: "stack-init.yaml"
-=======
   uses: "stack-init.yml"
->>>>>>> 3d28edd3ed80a678632f19dd762688bba220dc36
