@@ -37,12 +37,12 @@ jobs:
           git commit -m "Generate framework code and initialize workflows"
           git push
 
-      - name: npm install
-        run: |
-          npm install
+      # - name: npm install
+      #   run: |
+      #     npm install
 
-      - name: Deploy to AWS Lambda
-        uses: docker://admiralawkbar/aws-nodejs:latest
-        env:
-          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      # - name: Deploy to AWS Lambda
+      #   uses: docker://admiralawkbar/aws-nodejs:latest
+      #   env:
+      #     AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      #     AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
