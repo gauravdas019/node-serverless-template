@@ -40,7 +40,7 @@ configs:
         - aws
         - serverless
         - lambda
-        - github apps
+        - github-app
         - probot
 
   branches:
