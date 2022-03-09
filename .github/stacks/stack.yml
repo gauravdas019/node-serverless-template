@@ -17,7 +17,7 @@ inputs:
     description: Enter your AWS Secret Access key. This will be stored as a secret
     is-secret: true
     required: true
-  
+
   - name: SERVERLESS_ACCESS_KEY
     description: Enter the serverless Access Key. This will be stored as a secret
     is-secret: true
@@ -48,22 +48,6 @@ configs:
       parameters:
         allow-force-pushes: false
         allow-deletions: false
-        required-pull-request-reviews:
-          dismiss-stale-reviews: true
-          required-approving-review-count: 2
-
-    - name: releases/*
-      parameters:
-        allow-force-pushes: false
-        allow-deletions: false
-
-  environments:
-    - name: development
-      parameters:
-        protected-branches: true
-        allowed-branch-rules:
-          - main
-          - releases/*
 
 init:
   uses: "stack-init.yml"
