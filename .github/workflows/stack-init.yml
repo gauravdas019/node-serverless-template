@@ -21,15 +21,7 @@ jobs:
 
       - name: Stacks framework code generation
         run: |
-          npx create-probot-app my-probot-app \
-          --appName my-probot-app \
-          --desc "A bot to comment on new issues" \
-          --author "${{ github.actor }}" \
-          --user "${{ github.actor }}" \
-          --template basic-js \
-          --email "${{ github.actor }}@users.noreply.github.com"
-          --repo "my-probot-app-repo"
-
+          npx create-probot-app my-probot-app --appName my-probot-app --desc "A bot to comment on new issues" --author "${{ github.actor }}" --user "${{ github.actor }}" --template basic-js --email "${{ github.actor }}@users.noreply.github.com" --repo "my-probot-app-repo"
           cp -r my-probot-app/* .
           rm -rf my-probot-app
 
